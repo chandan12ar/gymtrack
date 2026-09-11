@@ -18,12 +18,13 @@
 
 /* ---------------------------------------------------------------- tokens -- */
 :root {
-  /* surfaces — dark is the default */
-  --bg:        #000000;
-  --bg-el:     #0e0e10;   /* elevated backdrop (sheets, bars) */
-  --surface:   #1c1c1e;   /* card / grouped-list fill */
-  --surface-2: #2c2c2e;   /* pressed + nested fill */
-  --surface-3: #3a3a3c;   /* controls (segmented track, switch off) */
+  /* surfaces — dark is the default. Cool graphite rather than true black: reads as
+     a considered dark UI instead of default OLED-black, same elevation steps. */
+  --bg:        #0a0b0d;
+  --bg-el:     #101216;   /* elevated backdrop (sheets, bars) */
+  --surface:   #16181d;   /* card / grouped-list fill */
+  --surface-2: #1f222a;   /* pressed + nested fill */
+  --surface-3: #2a2e37;   /* controls (segmented track, switch off) */
 
   /* text */
   --label:     #ffffff;
@@ -36,14 +37,20 @@
   --sep-op:    rgba(84,84,88,.34);   /* for edges sitting over blur */
   --hair:      .5px;
 
-  /* system palette (iOS dark values) */
-  --blue:#0a84ff; --green:#30d158; --red:#ff453a; --orange:#ff9f0a;
-  --yellow:#ffd60a; --teal:#40c8e0; --indigo:#5e5ce6; --pink:#ff375f;
+  /* system palette (iOS dark values). --green is retuned to a deeper, desaturated
+     emerald-teal (was Apple system green #30d158) — a deliberate brand color for a
+     training tool rather than a reskinned system palette. Everything reading
+     var(--green) (default accent, the "lime" accent option, live-status dots)
+     follows automatically. */
+  --blue:#0a84ff; --green:#1fb88f; --red:#ff453a; --orange:#ff9f0a;
+  /* --yellow retuned off bright system yellow to a muted bronze-gold — still reads
+     as "achievement" for PRs/goals/trophies, without the highlighter-yellow tone. */
+  --yellow:#d9a441; --teal:#40c8e0; --indigo:#5e5ce6; --pink:#ff375f;
   --purple:#bf5af2; --mint:#63e6e2; --brown:#ac8e68; --grey:#8e8e93;
 
   /* accent (per-account, synced) */
   --acc:  var(--green);
-  --acc-2:#248a3d;
+  --acc-2:#15876a;
   --on-acc:#000000;
   --acc-soft: color-mix(in srgb, var(--acc) 16%, transparent);
   --acc-line: color-mix(in srgb, var(--acc) 38%, transparent);
@@ -76,15 +83,15 @@
   --sep:       rgba(60,60,67,.29);
   --sep-op:    rgba(60,60,67,.20);
 
-  --blue:#007aff; --green:#34c759; --red:#ff3b30; --orange:#ff9500;
-  --yellow:#ffcc00; --teal:#30b0c7; --indigo:#5856d6; --pink:#ff2d55;
+  --blue:#007aff; --green:#14a17c; --red:#ff3b30; --orange:#ff9500;
+  --yellow:#b8802a; --teal:#30b0c7; --indigo:#5856d6; --pink:#ff2d55;
   --purple:#af52de; --mint:#00c7be; --brown:#a2845e; --grey:#8e8e93;
-  --acc-2:#248a3d;
+  --acc-2:#15876a;
   --on-acc:#ffffff;
 }
 
 /* accents — Apple's system colours, so a recolour never looks off-system */
-:root[data-accent="lime"]  { --acc:var(--green);  --acc-2:#248a3d; --on-acc:#000 }
+:root[data-accent="lime"]  { --acc:var(--green);  --acc-2:#15876a; --on-acc:#000 }
 :root[data-accent="sky"]   { --acc:var(--blue);   --acc-2:#0060df; --on-acc:#fff }
 :root[data-accent="orange"]{ --acc:var(--orange); --acc-2:#c76b00; --on-acc:#000 }
 :root[data-accent="violet"]{ --acc:var(--purple); --acc-2:#8944ab; --on-acc:#fff }
@@ -93,11 +100,11 @@
 :root[data-accent="teal"]  { --acc:var(--teal);   --acc-2:#0071a4; --on-acc:#000 }
 :root[data-accent="gold"]  { --acc:var(--yellow); --acc-2:#b25000; --on-acc:#000 }
 /* Label colour on a filled accent button is picked per accent by measured contrast,
-   not by taste. Button text is 17px/600, so the AA bar is 3:1 (large text). White on
-   the light-theme green is 2.22:1 and on teal 2.57:1 — both fail, and green is the
-   DEFAULT accent, so every primary button in light mode was failing. Black scores
-   9.46 / 8.16 there. Blue, purple, pink and red keep white (3.5–4.1:1), which both
-   passes and matches the platform convention. */
+   not by taste. Button text is 17px/600, so the AA bar is 3:1 (large text). Green and
+   teal are bright/mid-tone enough that white fails against them — both need black
+   text instead, and green is the DEFAULT accent, so every primary button in light
+   mode was failing before this override. Blue, purple, pink and red keep white
+   (3.5–4.1:1), which both passes and matches the platform convention. */
 :root[data-theme="light"][data-accent="lime"],
 :root[data-theme="light"][data-accent="teal"]  { --on-acc:#000 }
 :root[data-theme="light"][data-accent="sky"],
@@ -894,9 +901,13 @@ h4.sec{
 .ss-amp{text-align:center;font-size:15px;font-weight:600;color:var(--acc);margin:14px 0 8px}
 
 /* --- home: today's session row --- */
+/* the one card on Home that earns a border: this is the primary action on the
+   screen, so it gets a hairline in the current accent instead of another flat fill —
+   emphasis through a line, not another shadow or rounded-card repeat. */
 .today-row{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   margin-top:12px;padding:12px 14px;border-radius:var(--r);background:var(--surface-2);
+  box-shadow:inset 0 0 0 1px var(--acc-line);
   transition:background var(--fast);width:100%;text-align:left;
 }
 .today-row:active{background:var(--surface-3)}

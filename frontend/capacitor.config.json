@@ -2,7 +2,7 @@
   "appId": "com.chandan12ar.gymtrack",
   "appName": "GymTrack",
   "webDir": "dist",
-  "backgroundColor": "#0c0e12",
+  "backgroundColor": "#0a0b0d",
   "android": {
     "allowMixedContent": false
   }
