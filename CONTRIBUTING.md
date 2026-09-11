@@ -1,6 +1,6 @@
-# Contributing to openGym
+# Contributing to GymTrack
 
-Thanks for taking a look! openGym is intentionally small and dependency-light, and the goal is
+Thanks for taking a look! GymTrack is intentionally small and dependency-light, and the goal is
 to keep it that way — easy to read, easy to self-host.
 
 ## Project layout
@@ -55,9 +55,7 @@ cd frontend && npm test
 
 | You have | Goes to |
 | --- | --- |
-| A question, or self-hosting that won't behave | [Discussions → Q&A](https://github.com/DuarteSantos8/openGym/discussions/categories/q-a) |
-| An idea you're not sure about yet | [Discussions → Ideas](https://github.com/DuarteSantos8/openGym/discussions/categories/ideas) |
-| A reproducible bug | [Issues](https://github.com/DuarteSantos8/openGym/issues) |
+| A question, a reproducible bug, or an idea | [Issues](https://github.com/chandan12ar/gymtrack/issues) |
 | A change you've already built | A pull request |
 
 An answered question in Q&A is worth more than the same answer buried in a closed issue — the

@@ -1,4 +1,6 @@
-# Publishes the browser-only demo to GitHub Pages: https://duartesantos8.github.io/openGym/
+# Publishes a browser-only demo to GitHub Pages. Disabled by default on this fork
+# (workflow_dispatch only) — enable Pages in repo settings and add a `push` trigger back if you
+# want a live public demo.
 #
 # Pages serves static files only, so this build has no backend — VITE_DEMO=1 makes the app
 # boot straight into guest mode with a seeded example history (see frontend/src/lib/demo.js).
@@ -7,11 +9,6 @@
 name: Deploy demo to GitHub Pages
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:

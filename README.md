@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="openGym" width="720">
+<img src="assets/banner.png" alt="GymTrack" width="720">
 
 <br>
 
@@ -19,9 +19,9 @@ No account on someone else's server, no subscription, no ads. Just `docker compo
 ![Docker](https://img.shields.io/badge/Docker-compose-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![No tracking](https://img.shields.io/badge/telemetry-none-f472b6?style=flat-square)
 <br>
-![GitHub last commit](https://img.shields.io/github/last-commit/DuarteSantos8/openGym?style=flat-square)
-[![GitHub stars](https://img.shields.io/github/stars/DuarteSantos8/openGym?style=flat-square)](https://github.com/DuarteSantos8/openGym/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/DuarteSantos8/openGym?style=flat-square)](https://github.com/DuarteSantos8/openGym/issues)
+![GitHub last commit](https://img.shields.io/github/last-commit/chandan12ar/gymtrack?style=flat-square)
+[![GitHub stars](https://img.shields.io/github/stars/chandan12ar/gymtrack?style=flat-square)](https://github.com/chandan12ar/gymtrack/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/chandan12ar/gymtrack?style=flat-square)](https://github.com/chandan12ar/gymtrack/issues)
 
 </div>
 
@@ -37,20 +37,10 @@ No account on someone else's server, no subscription, no ads. Just `docker compo
 </table>
 </div>
 
-<div align="center">
-
-### [🌐 opengym.duarte-santos.ch](https://opengym.duarte-santos.ch) · [▶ Try the live demo](https://duartesantos8.github.io/openGym/)
-
-No signup, nothing to install — it runs entirely in your browser on example data.<br>
-<sub>There's no server behind the demo, so passkey sign-in, sync across devices and the
-admin dashboard only exist in a self-hosted instance.</sub>
-
-</div>
-
 ## Why
 
 Most workout apps lock your data behind a login on their servers, nag you to upgrade, or
-disappear when the startup does. openGym is the opposite: **it runs on your box, your data
+disappear when the startup does. GymTrack is the opposite: **it runs on your box, your data
 stays in a folder you control, and it's yours to fork.** It still feels modern — installable
 as a home-screen app, passkey sign-in, offline support, sync across your phone and laptop.
 
@@ -85,24 +75,21 @@ as a home-screen app, passkey sign-in, offline support, sync across your phone a
 - 📥 **Bring your history with you** — import from **FitNotes** (Android and iOS), **Strong** and **Hevy**, or body weight straight out of an **Apple Health** export. Exercise names are matched against the library and anything unrecognised becomes one of your own exercises, so nothing in the file is dropped
 - 📦 **Yours to keep** — one-tap JSON export/import, guest mode, **no telemetry**
 - 🤖 **Ask an AI about your training** (optional) — an [MCP server](mcp/README.md) lets a client like Claude Desktop or Cursor read your history in your own words: *"what did I bench last week?"*. Read-only, spawned locally by the client, nothing leaves your box. Not in the Docker build — if you don't use an AI assistant, it isn't there
-- 📱 **Standalone Android app** — the whole tracker as a sideloadable APK: no account, no server, data on the phone, native workout reminders ([download](https://opengym.duarte-santos.ch))
+- 📱 **Standalone mobile app** — the same codebase also builds a sideloadable Android APK: no account, no server, data on the phone, native workout reminders. Build it yourself with [docs/MOBILE.md](docs/MOBILE.md)
 
 ## Quick start (self-host)
 
 You need [Docker](https://docs.docker.com/get-docker/) with Compose.
 
 ```bash
-git clone https://github.com/DuarteSantos8/openGym
-cd openGym
+git clone https://github.com/chandan12ar/gymtrack
+cd gymtrack
 cp .env.example .env
-docker compose pull   # grab prebuilt images (amd64 + arm64) — skip to build from source instead
-docker compose up -d
+docker compose up -d --build
 ```
 
 Open **http://localhost:8080**, tap **Create profile**, and you're in. First launch downloads
-the exercise media (~140 MB) once. Prefer building the images yourself instead of pulling from
-`ghcr.io`? Drop the `pull` step and run `docker compose up -d --build` — you don't need Node or
-a build step locally either way.
+the exercise media (~140 MB) once.
 
 > Want it reachable from your phone over the internet with passkeys? You'll need an HTTPS
 > domain — a two-line change in `.env`. See **[docs/SELF_HOSTING.md](docs/SELF_HOSTING.md)**.
@@ -114,8 +101,7 @@ no backend — everything stays on the phone, with native workout-day reminders 
 backups. Self-hosting gets you multi-device sync and profiles for friends & family; the
 mobile app is the install-and-done flavor.
 
-- **Android:** [**download the APK**](https://opengym.duarte-santos.ch) and sideload it —
-  openGym is deliberately not on the Play Store. Or build it yourself: **[docs/MOBILE.md](docs/MOBILE.md)**.
+- **Android:** build it yourself and sideload the APK — see **[docs/MOBILE.md](docs/MOBILE.md)**.
 - **iPhone:** Apple doesn't allow installing apps outside the App Store, so there is no iOS
   download. Self-host and add it to your home screen from Safari (it's a full PWA), or build
   the native app onto your own device from Xcode — see **[docs/MOBILE.md](docs/MOBILE.md)**.
@@ -158,7 +144,7 @@ All via `.env` (see `.env.example`):
 | `NGINX_PORT`  | Port the web container listens on, inside the container | `80`                 |
 | `BACKEND`     | Name of the API service that `/api` is proxied to — change it if yours isn't called `api` | `api` |
 | `PORT`        | Port the API listens on; the web container proxies to the same value | `3000`  |
-| `RP_NAME`     | Name shown in the passkey prompt                     | `openGym`               |
+| `RP_NAME`     | Name shown in the passkey prompt                     | `GymTrack`              |
 | `SESSION_DAYS`| How long a sign-in lasts, in days                    | `90`                    |
 | `ADMIN_UIDS`  | User ids that get the admin dashboard (comma-separated) | *(none)*             |
 | `INVITE_ONLY` | Require an invite code to create a profile           | *(off)*                 |
@@ -171,9 +157,9 @@ host side of that volume, not the variable.
 
 ## Roadmap
 
-Rough, community-driven — ideas and PRs welcome:
+Rough, personal wishlist:
 
-- [x] Standalone mobile app — Android APK to sideload ([download](https://opengym.duarte-santos.ch)); on iOS as a self-hosted PWA (no store listings planned)
+- [x] Standalone mobile app — Android APK to sideload (build with [docs/MOBILE.md](docs/MOBILE.md)); on iOS as a self-hosted PWA (no store listings planned)
 - [x] Automatic progression programs (linear, Greyskull LP, double progression) with stalls and deloads
 - [x] Estimated 1RM per exercise
 - [ ] Percentage / training-max programming (5/3/1-style) on top of the progression engine
@@ -200,36 +186,23 @@ The same pure helpers power an optional MCP server (`mcp/`) that lets an LLM cli
 Claude Desktop read your data over stdio — see [mcp/README.md](mcp/README.md). Opt-in, not
 in the Docker build.
 
-## Community
-
-- **[Q&A](https://github.com/DuarteSantos8/openGym/discussions/categories/q-a)** — self-hosting
-  help, passkey/login trouble, "how do I…". Most login problems turn out to be an `RP_ID`/`ORIGIN`
-  mismatch.
-- **[Ideas](https://github.com/DuarteSantos8/openGym/discussions/categories/ideas)** — features
-  worth talking through before anyone writes code.
-- **[Show and tell](https://github.com/DuarteSantos8/openGym/discussions/categories/show-and-tell)**
-  — your setup, your plan templates, whatever you built on top.
-- **[Issues](https://github.com/DuarteSantos8/openGym/issues)** — bugs, and work that's already
-  been agreed on.
-
 ## Contributing
 
-Issues and PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Good first issues: more starter
-plans, exercise-data languages, import from other trackers. **A ⭐ helps more people find it.**
+Issues and PRs welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-openGym is free and stays free: AGPL, no subscription, no paid tier, nothing held back for
-sponsors. If it replaced a paid tracker for you and you want to chip in, the Sponsor button at the top of the page is there — a star, a bug report or a PR is worth just as much.
+## Credits
 
-<a href="https://buymeacoffee.com/duartesantos" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-       alt="Buy Me A Coffee"
-       style="height: 60px !important;width: 217px !important;">
-</a>
+GymTrack is a personal fork of **[openGym](https://github.com/DuarteSantos8/openGym)** by
+Duarte Santos, rebranded and maintained independently. All credit for the original design,
+architecture and feature set goes to the upstream project — if you don't need a personal fork,
+go use openGym directly and consider supporting it there.
+
+Exercise images/GIFs are fetched from the upstream dataset and keep their own terms, and the
+muscle-map body diagram is adapted from MuscleMap (MIT) — see [NOTICE.md](NOTICE.md) for full
+third-party credits.
 
 ## License
 
 [GNU AGPL v3.0](LICENSE) — free and open source. You can self-host, use, modify and share it;
 if you run a modified version as a network service, you must offer that version's source under
-the same license. Nobody can turn openGym into a closed, proprietary product.
-
-Exercise images/GIFs are fetched from the upstream dataset and keep their own terms — see [NOTICE.md](NOTICE.md).
+the same license.

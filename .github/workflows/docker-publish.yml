@@ -1,14 +1,9 @@
 name: Publish Docker images
 
-# Images are published from a *published release*, never from a bare tag push.
-# A tag that is later deleted (the versioning rule consolidates unreleased tags)
-# would otherwise leave its image tags behind in GHCR forever, and dependency
-# bots read those as a newer version. See issue #87.
+# Disabled by default on this fork — GymTrack builds images locally via `docker compose up
+# --build` and doesn't publish to a registry. Left here (workflow_dispatch only) in case that
+# changes later; re-add a `push`/`release` trigger to resume automatic publishing.
 on:
-  push:
-    branches: [main]
-  release:
-    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -59,7 +54,7 @@ jobs:
       - uses: docker/metadata-action@v6
         id: meta
         with:
-          images: ghcr.io/${{ steps.repo.outputs.owner }}/opengym-${{ matrix.image }}
+          images: ghcr.io/${{ steps.repo.outputs.owner }}/gymtrack-${{ matrix.image }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}
